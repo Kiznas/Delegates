@@ -49,30 +49,32 @@ namespace Delegates
             }
         }
 
-        public static void RepeateCode(Action action, Func<bool> condition, int timesCount)
+        public static void RepeateCode(Action<int> action, Func<bool> condition, int timesCount, int whatToPrint)
         {
-            int repiated = 0;
+            int repeated= 0;
 
-            while (condition() && ++repiated <= timesCount)
+            while (condition() && ++repeated <= timesCount)
             {
-                action();
+                action(whatToPrint++);
             }
         }
 
-        public static void ConsolePrint(int i)
-        {
-            Console.WriteLine(i);
-        }
+        //public static void whatToPrint(int i)
+        //{
+        //    Console.WriteLine(i);
+        //}
+
+
 
         static void Main(string[] args)
         {
             
 
-            IEnumerable<User> users = new User[3]
+            User[] users = new User[3]
             {
             new User("Vasya", "Pupkin", DateTime.Now, "123"),
             new User("Kolia", "Pechkin", DateTime.Now, "321"),
-            new User("Sergay", "Andreyev", DateTime.Now, "222"),
+            new User("Sergey", "Andreyev", DateTime.Now, "222"),
             };
             var sorted = Sort(users, (x, y) => x.LastName.CompareTo(y.LastName));
             foreach (var item in sorted)
@@ -87,10 +89,10 @@ namespace Delegates
             {
                 Console.WriteLine(item);
             }
-            Action<int> printActionDel = ConsolePrint;
             Func<bool> condition = new Func<bool>(() => true);
-            //RepeateCode(printActionDel(1), condition, 5);
-            printActionDel(10);
+
+
+            RepeateCode(Console.WriteLine, condition, 5, 10);
         }
     }
 }
