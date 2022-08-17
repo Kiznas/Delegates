@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Delegates
+namespace Repeatable
 {
     class Program
     {
